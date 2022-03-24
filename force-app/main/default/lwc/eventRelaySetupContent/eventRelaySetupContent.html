@@ -1,0 +1,415 @@
+<template>
+  <div class="slds-grid slds-wrap">
+    <div class="slds-size--1-of-1 slds-p-bottom_small">
+      <div class="slds-page-header">
+        <div class="slds-page-header__row">
+          <div class="slds-page-header__col-title">
+            <div class="slds-media">
+              <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-opportunity" title="Event Relay Configurations">
+                  <lightning-icon icon-name="standard:code_playground" alternative-text="code icon" size="large">
+                  </lightning-icon>
+                </span>
+              </div>
+              <div class="slds-media__body slds-align-middle">
+                <p class="slds-page-header__name-meta">Setup</p>
+                <div class="slds-page-header__name">
+                  <div class="slds-page-header__name-title">
+                    <h1>
+                      <span class="slds-page-header__title slds-truncate" title="Event Relay Configurations">Event Relay Configurations</span>
+                    </h1>
+                  </div>
+                  <!--div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                      <lightning-button label="Setup" onclick={openSetupModal}></lightning-button>
+                    </div>
+                  </div-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <template if:true={showSetup}>
+      <div class="slds-size_1-of-1 slds-p-bottom_small">
+        <div class="slds-card slds-p-around_medium">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-p-bottom_medium">
+              <div class="slds-text-heading_medium slds-p-bottom_small"> Getting Started </div>
+              <div class="slds-text-body_regular">Use Event Bus Relay to send and receive platform events and change data capture events between Salesforce and Amazon Web Services (AWS). By using Event Bus Relay in Salesforce with Amazon EventBridge in AWS, your Salesforce event-driven apps can use AWS services to process events or send events to third-party and SaaS integrations. You can also send platform events from AWS back to Salesforce, where subscribers can process them using Salesforce Platform capabilities.</div>
+            </div>
+            <div class="slds-size_1-of-1">
+              <div class="slds-progress slds-progress_vertical">
+                <ol class="slds-progress__list">
+                  <li class={step1Classlist}>
+                    <template if:true={step1Completed}>
+                      <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon" title="Complete">
+                        <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                        <span class="slds-assistive-text">Complete</span>
+                      </span>
+                    </template>
+                    <template if:false={step1Completed}>
+                      <div class="slds-progress__marker"></div>
+                    </template>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                      <div class="slds-size_3-of-5">
+                        <p>Configure your pardot enviornment settings inside the Pardot</p>
+                        <a href="https://developer.pardot.com/kb/authentication/">Find your authentication settings</a>
+                      </div>
+                      <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                        <lightning-button label="View Configuration" onclick={navigateToCMDT}></lightning-button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class={step2Classlist}>
+                    <template if:true={step2Completed}>
+                      <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon" title="Complete">
+                        <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                        <span class="slds-assistive-text">Complete</span>
+                      </span>
+                    </template>
+                    <template if:false={step2Completed}>
+                      <div class="slds-progress__marker"></div>
+                    </template>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                      <div class="slds-size_3-of-5"> Run your first Pardot Form Sync - this will bring the records into Pardot for use. </div>
+                      <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                        <lightning-button label="Sync Pardot Forms" onclick={runFirstJob}></lightning-button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class={step3Classlist}>
+                    <template if:true={step3Completed}>
+                      <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon" title="Complete">
+                        <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                        <span class="slds-assistive-text">Complete</span>
+                      </span>
+                    </template>
+                    <template if:false={step3Completed}>
+                      <div class="slds-progress__marker"></div>
+                    </template>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                      <div class="slds-size_3-of-5"> Schedule your pardot form sync to run every day and check for new and updated forms. </div>
+                      <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-grid slds-grid_align-end slds-size_1-of-1 slds-p-bottom--small">
+                            <lightning-button label="Schedule Security Sync" onclick={scheduleSync}>
+                            </lightning-button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class={step4Classlist}>
+                    <template if:true={step4Completed}>
+                      <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon" title="Complete">
+                        <lightning-icon icon-name="utility:success" size="xx-small"></lightning-icon>
+                        <span class="slds-assistive-text">Complete</span>
+                      </span>
+                    </template>
+                    <template if:false={step4Completed}>
+                      <div class="slds-progress__marker"></div>
+                    </template>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread">
+                      <div class="slds-size_3-of-5">
+                        <p>Add URLs and Activate your Forms</p>
+                      </div>
+                      <div class="slds-grid slds-grid_align-end slds-size_2-of-5">
+                        <lightning-button label="Update URLs" onclick={navigateToFormList}></lightning-button>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+            <lightning-button label="Browse the Docs" icon-name="utility:chevronright" icon-position="right" onclick={viewDocs} name="docs" variant="brand"></lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template if:true={showHome}>
+      <!--Event Relay Configurations-->
+      <div class="slds-size_1-of-1 slds-p-bottom_small">
+        <div class="slds-card">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-p-bottom_medium">
+              <div class="slds-card dpm-card-container">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-page-header--object-home slds-page-header_joined slds-page-header_bleed slds-page-header slds-shrink-none test-headerRegion forceListViewManagerHeader slds-size_1-of-1">
+                    <div class="slds-page-header__row">
+                      <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                          <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                              <div class="slds-page-header__name-title">
+                                <h1>
+                                  <span class="slds-page-header__title slds-truncate" title="Event Relay Configurations">Event Relay Configurations</span>
+                                </h1>
+                              </div>
+                            </div>
+                            <p> An event relay configuration includes your AWS account information and a Salesforce event channel that you set up. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                          <lightning-button label="New" name="new" onclick={newEventRelayConfig}></lightning-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <template if:true={eventRelayConfigLoading}>
+                    <div class="slds-size_1-of-1 spinner-container">
+                      <lightning-spinner size="medium"></lightning-spinner>
+                    </div>
+                  </template>
+                  <template if:false={eventRelayConfigLoading}>
+                    <template if:true={showMessage}>
+                      <div class="slds-size--1-of-1 slds-p-around_medium">
+                        <c-lwc-messaging-utility message-type={messageType} show-message={showMessage} message-title="Error" message-body={error} message-variant="error" icon-name="utility:error" icon-size="medium" icon-alternative-text="error" show-icon="true" max-width="50"></c-lwc-messaging-utility>
+                      </div>
+                    </template>
+                    <template if:true={noEventRelayConfigs}>
+                      <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-bottom_small slds-p-top_small">
+                            <c-lwc-messaging-utility max-width="70" show-message="true" message-type="illustration" illustration-name="empty" message-title="No Event Relay Configurations" message-body="Please create an Event Relay Configuration to get started!"></c-lwc-messaging-utility>
+                          </div>
+                          <div class="slds-size_1-of-1 slds-align--absolute-center">
+                            <lightning-button label="New Event Relay Configuration" name="new" onclick={newEventRelayConfig} variant="brand"></lightning-button>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={noEventRelayConfigs}>
+                      <div class="slds-size_1-of-1">
+                        <lightning-datatable key-field="id" columns={eventRelayConfigColumns} data={eventRelayConfigs} hide-checkbox-column default-sort-direction={defaultSortDirection} sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort} onrowaction={handleRowAction}>
+                        </lightning-datatable>
+                      </div>
+                    </template>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template if:true={showNamedCredentials}>
+      <div class="slds-size_1-of-1 slds-p-bottom_small">
+        <div class="slds-card">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-p-bottom_medium">
+              <div class="slds-card dpm-card-container">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-page-header--object-home slds-page-header_joined slds-page-header_bleed slds-page-header slds-shrink-none test-headerRegion forceListViewManagerHeader slds-size_1-of-1">
+                    <div class="slds-page-header__row">
+                      <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                          <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                              <div class="slds-page-header__name-title">
+                                <h1>
+                                  <span class="slds-page-header__title slds-truncate" title="Event Relay Configurations">AWS Named Credentials</span>
+                                </h1>
+                              </div>
+                            </div>
+                            <p> A named credential stores your AWS account information and authentication configuration. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                          <lightning-button label="New" name="new" onclick={newNamedCredential}></lightning-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <template if:true={loading}>
+                    <div class="slds-size_1-of-1 dpm-spinner-container">
+                      <lightning-spinner size="medium"></lightning-spinner>
+                    </div>
+                  </template>
+                  <template if:false={loading}>
+                    <template if:true={showMessage}>
+                      <div class="slds-size--1-of-1 slds-p-around_medium">
+                        <c-lwc-messaging-utility message-type={messageType} show-message={showMessage} message-title="Error" message-body={error} message-variant="error" icon-name="utility:error" icon-size="medium" icon-alternative-text="error" show-icon="true" max-width="50"></c-lwc-messaging-utility>
+                      </div>
+                    </template>
+                    <template if:true={noNamedCredentials}>
+                      <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-bottom_small slds-p-top_small">
+                            <c-lwc-messaging-utility max-width="70" show-message="true" message-type="illustration" illustration-name="empty" message-title="No AWS Named Credentials" message-body="Please create an AWS Named Credential to get started!"></c-lwc-messaging-utility>
+                          </div>
+                          <div class="slds-size_1-of-1 slds-align--absolute-center">
+                            <lightning-button label="New AWS Named Credential" name="new" onclick={newNamedCredential} variant="brand"></lightning-button>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={noNamedCredentials}>
+                      <div class="slds-size_1-of-1">
+                        <lightning-datatable key-field="id" columns={namedCredentialColumns} data={namedCredentials} hide-checkbox-column default-sort-direction={defaultSortDirection} sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort} onrowaction={handleRowAction}>
+                        </lightning-datatable>
+                      </div>
+                    </template>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <!--Platform Event Channels-->
+    <template if:true={showPlatformEventChannels}>
+      <div class="slds-size_1-of-1 slds-p-bottom_small">
+        <div class="slds-card">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-p-bottom_medium">
+              <div class="slds-card dpm-card-container">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-page-header--object-home slds-page-header_joined slds-page-header_bleed slds-page-header slds-shrink-none test-headerRegion forceListViewManagerHeader slds-size_1-of-1">
+                    <div class="slds-page-header__row">
+                      <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                          <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                              <div class="slds-page-header__name-title">
+                                <h1>
+                                  <span class="slds-page-header__title slds-truncate" title="Platform Event Channels">Platform Event Channels</span>
+                                </h1>
+                              </div>
+                            </div>
+                            <p> Represents a custom channel that you can subscribe to in order to receive a stream of change data capture events. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                          <lightning-button label="New" name="new" onclick={newPlatformEventChannel}></lightning-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <template if:true={loading}>
+                    <div class="slds-size_1-of-1 dpm-spinner-container">
+                      <lightning-spinner size="medium"></lightning-spinner>
+                    </div>
+                  </template>
+                  <template if:false={loading}>
+                    <template if:true={showMessage}>
+                      <div class="slds-size--1-of-1 slds-p-around_medium">
+                        <c-lwc-messaging-utility message-type={messageType} show-message={showMessage} message-title="Error" message-body={error} message-variant="error" icon-name="utility:error" icon-size="medium" icon-alternative-text="error" show-icon="true" max-width="50"></c-lwc-messaging-utility>
+                      </div>
+                    </template>
+                    <template if:true={noPlatformEventChannels}>
+                      <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-bottom_small slds-p-top_small">
+                            <c-lwc-messaging-utility max-width="70" show-message="true" message-type="illustration" illustration-name="empty" message-title="No Platform Event Channels" message-body="Please create a Platform Event Channel to get started!"></c-lwc-messaging-utility>
+                          </div>
+                          <div class="slds-size_1-of-1 slds-align--absolute-center">
+                            <lightning-button label="New Platform Event Channel" name="new" onclick={newPlatformEventChannel} variant="brand"></lightning-button>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={noPlatformEventChannels}>
+                      <div class="slds-size_1-of-1">
+                        <lightning-datatable key-field="id" columns={platformEventChannelColumns} data={platformEventChannels} hide-checkbox-column default-sort-direction={defaultSortDirection} sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort} onrowaction={handleRowAction}>
+                        </lightning-datatable>
+                      </div>
+                    </template>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <!--Platform Event Channel Members-->
+    <template if:true={showPlatformEventChannelMembers}>
+      <div class="slds-size_1-of-1 slds-p-bottom_small">
+        <div class="slds-card">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-p-bottom_medium">
+              <div class="slds-card dpm-card-container">
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-page-header--object-home slds-page-header_joined slds-page-header_bleed slds-page-header slds-shrink-none test-headerRegion forceListViewManagerHeader slds-size_1-of-1">
+                    <div class="slds-page-header__row">
+                      <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                          <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                              <div class="slds-page-header__name-title">
+                                <h1>
+                                  <span class="slds-page-header__title slds-truncate" title="Platform Event Channel Members">Platform Event Channel Members</span>
+                                </h1>
+                              </div>
+                            </div>
+                            <p class="slds-p-right_medium"> Represents an entity selected for Change Data Capture or Event Relay notifications on a standard or custom channel, or a platform event selected on a custom channel. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                          <lightning-button label="New" name="new" onclick={newPlatformEventChannelMember}></lightning-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <template if:true={loading}>
+                    <div class="slds-size_1-of-1 dpm-spinner-container">
+                      <lightning-spinner size="medium"></lightning-spinner>
+                    </div>
+                  </template>
+                  <template if:false={loading}>
+                    <template if:true={showMessage}>
+                      <div class="slds-size--1-of-1 slds-p-around_medium">
+                        <c-lwc-messaging-utility message-type={messageType} show-message={showMessage} message-title="Error" message-body={error} message-variant="error" icon-name="utility:error" icon-size="medium" icon-alternative-text="error" show-icon="true" max-width="50"></c-lwc-messaging-utility>
+                      </div>
+                    </template>
+                    <template if:true={noPlatformEventChannelMembers}>
+                      <div class="slds-size_1-of-1 slds-align_absolute-center">
+                        <div class="slds-grid slds-wrap">
+                          <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-bottom_small slds-p-top_small">
+                            <c-lwc-messaging-utility max-width="70" show-message="true" message-type="illustration" illustration-name="empty" message-title="No Platform Event Channel Members" message-body="Please create a Platform Event Channel Member to get started!"></c-lwc-messaging-utility>
+                          </div>
+                          <div class="slds-size_1-of-1 slds-align--absolute-center">
+                            <lightning-button label="New Platform Event Channel Member" name="new" onclick={newPlatformEventChannelMember} variant="brand"></lightning-button>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={noPlatformEventChannelMembers}>
+                      <div class="slds-size_1-of-1">
+                        <lightning-datatable key-field="id" columns={platformEventChannelMemberColumns} data={platformEventChannelMembers} hide-checkbox-column default-sort-direction={defaultSortDirection} sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort} onrowaction={handleRowAction}>
+                        </lightning-datatable>
+                      </div>
+                    </template>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+  <template if:true={showNamedCredentialModal}>
+    <c-event-relay-named-credential-modal selected-credential={selectedNamedCredential} modal-state={modalState} onclosemodal={handleCloseModal}></c-event-relay-named-credential-modal>
+  </template>
+  <template if:true={showPlatformEventChannelModal}>
+    <c-event-relay-platform-event-channel-modal modal-state={modalState} onclosemodal={handleCloseModal}></c-event-relay-platform-event-channel-modal>
+  </template>
+  <template if:true={showPlatformEventChannelMemberModal}>
+    <c-event-relay-platform-event-channel-member-modal event-definitions={eventDefinitions} platform-event-channels={platformEventChannels} modal-state={modalState} onclosemodal={handleCloseModal}></c-event-relay-platform-event-channel-member-modal>
+  </template>
+  <template if:true={showEventRelayConfigModal}>
+    <c-event-relay-config-modal named-credentials={namedCredentials} event-definitions={eventDefinitions} platform-event-channels={platformEventChannels} modal-state={modalState} onclosemodal={handleCloseModal}></c-event-relay-config-modal>
+  </template>
+</template>

@@ -1,0 +1,154 @@
+<template>
+  <section
+    role="dialog"
+    tabindex="-1"
+    aria-labelledby="aws-credentials"
+    aria-modal="true"
+    aria-describedby="aws-credentials"
+    class="slds-modal slds-fade-in-open slds-align--absolute-center"
+  >
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <button
+          class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+          title="Close"
+          onclick={closeModal}
+        >
+          <lightning-icon
+            icon-name="utility:close"
+            alternative-text="close"
+            variant="inverse"
+            size="small"
+          ></lightning-icon>
+          <span class="slds-assistive-text">Close</span>
+        </button>
+        <h2 class="slds-modal__title slds-hyphenate">
+          New Event Relay Configuration
+        </h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium body-container">
+        <div class="slds-grid slds-wrap">
+          <template if:true={loading}>
+            <div class="slds-size_1-of-1 spinner-container">
+              <lightning-spinner size="medium"></lightning-spinner>
+            </div>
+          </template>
+          <template if:false={loading}>
+            <template if:true={showMessage}>
+              <div class="slds-size--1-of-1 slds-p-around_medium">
+                <c-lwc-messaging-utility
+                  message-type="inline"
+                  show-message="true"
+                  message-title={messageTitle}
+                  message-body={messageBody}
+                  message-variant={messageVariant}
+                  icon-name={messageIcon}
+                  icon-variant={messageIconVariant}
+                  icon-size="medium"
+                  show-icon="true"
+                ></c-lwc-messaging-utility>
+              </div>
+            </template>
+            <div class="slds-size_1-of-1">
+              <template if:true={editState}>
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-size_1-of-1 slds-p-around_medium">
+                    <lightning-input
+                      type="text"
+                      label="Label"
+                      name="label"
+                      value={selectedEventRelayConfig.label}
+                      onchange={handleInputChange}
+                      onfocusout={setNameValue}
+                      tabindex="0"
+                    ></lightning-input>
+                    <lightning-input
+                      type="text"
+                      label="API Name"
+                      name="name"
+                      value={selectedEventRelayConfig.name}
+                      pattern="[^\s]+"
+                      message-when-pattern-mismatch="The Named Credential API Name can only contain underscores and alphanumeric characters."
+                      onchange={handleInputChange}
+                    ></lightning-input>
+                    <lightning-combobox
+                      name="eventChannel"
+                      label="Event Channel"
+                      value={selectedEventRelayConfig.eventChannel}
+                      placeholder="Select Event Channel"
+                      options={_platformEventChannels}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                    <lightning-combobox
+                      class="slds-p-bottom_x-large"
+                      name="namedCredential"
+                      label="Selected Entity"
+                      value={selectedEventRelayConfig.selectedEntity}
+                      placeholder="Select Event Channel"
+                      options={_namedCredentials}
+                      onchange={handleInputChange}
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </template>
+              <template if:true={viewState}>
+                <div class="slds-grid slds-wrap">
+                  <div class="slds-size_1-of-1 slds-p-around_medium">
+                    <lightning-input
+                      type="text"
+                      label="Label"
+                      name="label"
+                      value={selectedEventRelayConfig.label}
+                      onchange={handleInputChange}
+                      onfocusout={setNameValue}
+                      tabindex="0"
+                      read-only
+                    ></lightning-input>
+                    <lightning-input
+                      type="text"
+                      label="API Name"
+                      name="name"
+                      value={selectedEventRelayConfig.name}
+                      pattern="[^\s]+"
+                      message-when-pattern-mismatch="The Named Credential API Name can only contain underscores and alphanumeric characters."
+                      onchange={handleInputChange}
+                      read-only
+                    ></lightning-input>
+                    <lightning-combobox
+                      name="eventChannel"
+                      label="Event Channel"
+                      value={selectedEventRelayConfig.eventChannel}
+                      placeholder="Select Event Channel"
+                      options={_platformEventChannels}
+                      onchange={handleInputChange}
+                      read-only
+                    ></lightning-combobox>
+                    <lightning-combobox
+                      class="slds-p-bottom_x-large"
+                      name="namedCredential"
+                      label="Selected Entity"
+                      value={selectedEventRelayConfig.selectedEntity}
+                      placeholder="Select Event Channel"
+                      options={_namedCredentials}
+                      onchange={handleInputChange}
+                      read-only
+                    ></lightning-combobox>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+      <footer class="slds-modal__footer slds-modal__footer_directional">
+        <button class="slds-button slds-button_neutral" onclick={closeModal}>
+          Cancel
+        </button>
+        <button class="slds-button slds-button_brand" onclick={nextStage}>
+          {nextButtonLabel}
+        </button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

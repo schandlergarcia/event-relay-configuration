@@ -1,0 +1,18 @@
+<template>
+  <div class="slds-grid slds-wrap expand-container">
+    <div class="slds-size_1-of-1 expand-container">
+      <div class="slds-grid slds-wrap expand-container">
+        <div class="setup-nav expand-container">
+          <c-event-relay-setup-navigation
+            nav-items={navItems}
+            selected-item={selectedNavItem}
+            onnavselect={handleNavSelect}
+          ></c-event-relay-setup-navigation>
+        </div>
+        <div class="setup-content slds-p-left_small slds-scrollable_y">
+          <c-event-relay-setup-content selected-nav-item={selectedNavItem}></c-event-relay-setup-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

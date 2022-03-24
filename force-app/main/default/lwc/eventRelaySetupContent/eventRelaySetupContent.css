@@ -1,0 +1,9 @@
+.slds-progress__item_content{
+    border-bottom: 1px var(--lwc-colorBorderSeparatorAlt,rgb(221, 219, 218)) solid;
+}
+.spinner-container{
+    position: relative;
+    display: inline-block;
+    min-height: 250px;
+    width: 100%;  
+}
